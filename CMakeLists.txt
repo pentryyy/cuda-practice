@@ -16,15 +16,15 @@ set(CMAKE_CUDA_ARCHITECTURES
     90          # Hopper
 )
 
-add_executable(cuda-practice main.cu)
+add_executable(main main.cu)
 
 # Для Visual Studio добавляем настройки
 if(MSVC)
-    target_compile_options(cuda-practice 
+    target_compile_options(main
         PRIVATE 
         $<$<COMPILE_LANGUAGE:CUDA>:-Xcompiler=/W4 -Wno-deprecated-gpu-targets>
     )
-    target_compile_definitions(cuda-practice 
+    target_compile_definitions(main
         PRIVATE 
         _CRT_SECURE_NO_WARNINGS
     )

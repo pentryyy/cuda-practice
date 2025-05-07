@@ -11,3 +11,11 @@ cmake ..
 ```
 cmake --build . --target ALL_BUILD --config Release
 ```
+
+# Запуск после сборки
+
+Выполняется из директории `build`
+
+```
+./Release/main
+```
