@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.18)
 project(cuda-practice LANGUAGES CXX CUDA)
 
-# Включаем поддержку современных стандартов
+# Включаем поддержку C++17
 set(CMAKE_CUDA_STANDARD 17)
 set(CMAKE_CXX_STANDARD 17)
 
@@ -16,16 +16,23 @@ set(CMAKE_CUDA_ARCHITECTURES
     90          # Hopper
 )
 
-add_executable(main main.cu)
+# Исходники для 1-ой лекции
+add_executable(adding_vectors lecture/1/adding_vectors.cu)
 
 # Для Visual Studio добавляем настройки
 if(MSVC)
-    target_compile_options(main
-        PRIVATE 
-        $<$<COMPILE_LANGUAGE:CUDA>:-Xcompiler=/W4 -Wno-deprecated-gpu-targets>
-    )
-    target_compile_definitions(main
-        PRIVATE 
-        _CRT_SECURE_NO_WARNINGS
-    )
+    # Список всех целей
+    set(TARGETS adding_vectors)
+
+    # Применяем настройки к каждому элементу списка
+    foreach(target IN LISTS TARGETS)
+        target_compile_options(${target}
+            PRIVATE 
+            $<$<COMPILE_LANGUAGE:CUDA>:-Xcompiler=/W4 -Wno-deprecated-gpu-targets>
+        )
+        target_compile_definitions(${target}
+            PRIVATE 
+            _CRT_SECURE_NO_WARNINGS
+        )
+    endforeach()
 endif()
