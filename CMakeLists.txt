@@ -32,6 +32,11 @@ add_executable(solver_chaos lecture/3/solver_chaos.cu)
 add_executable(nbody            lecture/4/nbody.cu)
 add_executable(matmul_optimized lecture/4/matmul_optimized.cu)
 
+# Исходники для 5-ой лекции
+add_executable(array_processing lecture/5/array_processing.cu)
+add_executable(matrix_mul       lecture/5/matrix_mul.cu)
+add_executable(nbody_shared     lecture/5/nbody_shared.cu)
+
 # Для Visual Studio добавляем настройки
 if(MSVC)
     # Список всех целей
@@ -40,6 +45,7 @@ if(MSVC)
         complex_function cuda_streams pinned_memory
         solver_slau solver_chaos
         nbody matmul_optimized
+        array_processing matrix_mul nbody_shared
     )
 
     # Применяем настройки к каждому элементу списка
