@@ -19,10 +19,15 @@ set(CMAKE_CUDA_ARCHITECTURES
 # Исходники для 1-ой лекции
 add_executable(adding_vectors lecture/1/adding_vectors.cu)
 
+# Исходники для 2-ой лекции
+add_executable(complex_function lecture/2/complex_function.cu)
+add_executable(cuda_streams     lecture/2/cuda_streams.cu)
+add_executable(pinned_memory    lecture/2/pinned_memory.cu)
+
 # Для Visual Studio добавляем настройки
 if(MSVC)
     # Список всех целей
-    set(TARGETS adding_vectors)
+    set(TARGETS adding_vectors complex_function cuda_streams pinned_memory)
 
     # Применяем настройки к каждому элементу списка
     foreach(target IN LISTS TARGETS)
