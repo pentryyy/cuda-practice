@@ -24,10 +24,18 @@ add_executable(complex_function lecture/2/complex_function.cu)
 add_executable(cuda_streams     lecture/2/cuda_streams.cu)
 add_executable(pinned_memory    lecture/2/pinned_memory.cu)
 
+# Исходники для 3-ей лекции
+add_executable(solver_slau  lecture/3/solver_slau.cu)
+add_executable(solver_chaos lecture/3/solver_chaos.cu)
+
 # Для Visual Studio добавляем настройки
 if(MSVC)
     # Список всех целей
-    set(TARGETS adding_vectors complex_function cuda_streams pinned_memory)
+    set(TARGETS 
+        adding_vectors 
+        complex_function cuda_streams pinned_memory
+        solver_slau solver_chaos
+    )
 
     # Применяем настройки к каждому элементу списка
     foreach(target IN LISTS TARGETS)
