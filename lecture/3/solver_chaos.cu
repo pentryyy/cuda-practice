@@ -8,7 +8,7 @@
 #define EPS_L 1e-15
 
 // Ядро для вычисления матрицы A(x)
-__global__ void Matrix_A(double *dA, double *dX, int size) {
+__global__ void matrixA(double *dA, double *dX, int size) {
     int j = blockIdx.x * blockDim.x + threadIdx.x;
     int i = blockIdx.y * blockDim.y + threadIdx.y;
     if (i < size && j < size) {
@@ -54,7 +54,7 @@ int main() {
     printf("[INFO] Data copied asynchronously.\n");
 
     // Вычисление матрицы A
-    Matrix_A<<<blocksPerGrid, threadsPerBlock, 0, stream>>>(dA, dX, N);
+    matrixA<<<blocksPerGrid, threadsPerBlock, 0, stream>>>(dA, dX, N);
     printf("[INFO] Matrix_A kernel launched.\n");
 
     // Синхронизация и завершение

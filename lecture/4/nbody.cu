@@ -8,7 +8,7 @@
 #define EPSILON 1e-15
 
 // Ядро для расчета ускорений с использованием разделяемой памяти
-__global__ void Acceleration_GPU_Shared(
+__global__ void accelerationSharedGPU(
     float *X, float *Y, float *AX, float *AY, int nt, int N
 ) {
 
@@ -46,7 +46,7 @@ __global__ void Acceleration_GPU_Shared(
 }
 
 // Ядро для обновления позиций
-__global__ void Position_GPU(
+__global__ void positionGPU(
     float *X, float *Y, float *VX, float *VY, float *AX, float *AY, float tau, int nt, int N
 ) {
 
@@ -119,8 +119,8 @@ int main() {
     // Запуск GPU-расчета
     cudaEventRecord(start);
     for (int j = 1; j < NT; j++) {
-        Acceleration_GPU_Shared<<<blocks, threads, 2 * BLOCK_SIZE * sizeof(float)>>>(dX, dY, dAX, dAY, j, N);
-        Position_GPU<<<blocks, threads>>>(dX, dY, dVX, dVY, dAX, dAY, tau, j, N);
+        accelerationSharedGPU<<<blocks, threads, 2 * BLOCK_SIZE * sizeof(float)>>>(dX, dY, dAX, dAY, j, N);
+        positionGPU<<<blocks, threads>>>(dX, dY, dVX, dVY, dAX, dAY, tau, j, N);
     }
     cudaEventRecord(stop);
     cudaEventSynchronize(stop);

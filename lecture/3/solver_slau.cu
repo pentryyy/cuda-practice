@@ -7,7 +7,7 @@
 #define N 10240
 
 // Ядро для решения СЛАУ методом итераций
-__global__ void Solve(double *dA, double *dF, double *dX0, double *dX1, int size) {
+__global__ void solveMethod(double *dA, double *dF, double *dX0, double *dX1, int size) {
     int t = blockIdx.x * blockDim.x + threadIdx.x;
     if (t < size) {
         double aa, sum = 0.0;
@@ -20,7 +20,7 @@ __global__ void Solve(double *dA, double *dF, double *dX0, double *dX1, int size
 }
 
 // Ядро для вычисления погрешности
-__global__ void Eps(double *dX0, double *dX1, double *delta, int size) {
+__global__ void epsMethod(double *dX0, double *dX1, double *delta, int size) {
     int i = blockIdx.x * blockDim.x + threadIdx.x;
     if (i < size) {
         delta[i] = fabs(dX0[i] - dX1[i]);
@@ -80,8 +80,8 @@ int main() {
 
     printf("[INFO] Starting iterations...\n");
     while (eps > EPS) {
-        Solve<<<blocksPerGrid, threadsPerBlock>>>(dA, dF, dX0, dX1, N);
-        Eps<<<blocksPerGrid, threadsPerBlock>>>(dX0, dX1, delta, N);
+        solveMethod<<<blocksPerGrid, threadsPerBlock>>>(dA, dF, dX0, dX1, N);
+        epsMethod<<<blocksPerGrid, threadsPerBlock>>>(dX0, dX1, delta, N);
         cudaMemcpy(hDelta, delta, mem_sizeX, cudaMemcpyDeviceToHost);
 
         eps = 0.0;

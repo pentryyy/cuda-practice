@@ -5,7 +5,7 @@
 #define N 2048
 
 // Ядро с оптимизацией через разделяемую память и устранением банковских конфликтов
-__global__ void matmul_optimized(float *A, float *B, float *C) {
+__global__ void matmulOptimized(float *A, float *B, float *C) {
     __shared__ float As[BLOCK_SIZE][BLOCK_SIZE + 1];
     __shared__ float Bs[BLOCK_SIZE][BLOCK_SIZE + 1];
 
@@ -73,7 +73,7 @@ int main() {
 
     // Запуск ядра
     cudaEventRecord(start);
-    matmul_optimized<<<blocks, threads>>>(d_A, d_B, d_C);
+    matmulOptimized<<<blocks, threads>>>(d_A, d_B, d_C);
     cudaEventRecord(stop);
     cudaEventSynchronize(stop);
     cudaEventElapsedTime(&gpuTime, start, stop);
