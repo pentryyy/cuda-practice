@@ -27,7 +27,7 @@ cmake --build . --target ALL_BUILD --config Release
 Выполняется из среды linux с использованием NVIDIA HPC SDK.
 
 ```
-nvc++ -acc -gpu=managed main.cpp -o compile/main
+nvc++ -acc -gpu=mem:managed main.cpp -o compile/main
 ./compile/main
 ```
 
