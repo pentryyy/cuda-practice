@@ -5,4 +5,4 @@
 build/
 
 ### Compiled Files ###
-lecture/openacc/sin_sqrt_example
+lecture/openacc/compile/*
