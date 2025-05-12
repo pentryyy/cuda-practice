@@ -31,4 +31,11 @@ nvc++ -acc -gpu=mem:managed main.cpp -o compile/main
 ./compile/main
 ```
 
-Вместо `main` указываем название желаемого файла.
+Вместо `main` указываем название желаемого файла.  
+Или скомпилировать все исполняемые файлы через `compile.sh`.  
+Убедитесь, что файл сохранен с Unix-форматом окончания строк (LF), а не Windows (CRLF).
+
+```
+sed -i 's/\r$//' compile.sh
+./compile.sh
+```
