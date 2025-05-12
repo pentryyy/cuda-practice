@@ -3,3 +3,6 @@
 
 ### Build Folder ###
 build/
+
+### Compiled Files ###
+lecture/openacc/sin_sqrt_example
